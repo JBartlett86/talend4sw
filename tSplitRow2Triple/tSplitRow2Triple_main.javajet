@@ -50,15 +50,14 @@ if (listColMapping != null && !listColMapping.isEmpty())
 	// cache output rows for the loop
 	<%for (Map<String, String> colMapping : listColMapping) 
 	{ %>
-		rowTmp_<%=cid%> = new <%=outConnName%>Struct();
-		
-		rowTmp_<%=cid%> = new <%=outConnName%>Struct();
-		rowTmp_<%=cid%>.subject = <%=colMapping.get("subject")%>;
-		rowTmp_<%=cid%>.predicate=<%=colMapping.get("predicate")%>;
-		rowTmp_<%=cid%>.object=<%=colMapping.get("object")%>;
-		rowTmp_<%=cid%>.type=<%=colMapping.get("type")%>;
-		
-		rows_<%=cid%>.add(rowTmp_<%=cid%>);
+		if (<%=colMapping.get("object")%> != null && ! "".equals(<%=colMapping.get("object")%>)) {		
+			rowTmp_<%=cid%> = new <%=outConnName%>Struct();
+			rowTmp_<%=cid%>.subject = <%=colMapping.get("subject")%>;
+			rowTmp_<%=cid%>.predicate=<%=colMapping.get("predicate")%>;
+			rowTmp_<%=cid%>.object=<%=colMapping.get("object")%>.toString();
+			rowTmp_<%=cid%>.type=<%=colMapping.get("type")%>;
+			rows_<%=cid%>.add(rowTmp_<%=cid%>);
+		}
 		nb_line_<%=cid%>++;
 	<%
 	}
